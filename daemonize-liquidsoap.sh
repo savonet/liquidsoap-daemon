@@ -48,7 +48,7 @@ set("init.daemon.pidfile.path","${pid_dir}/<script>.pid")
 EOS
 fi;
 
-echo "%include \"${HOME}/liquidsoap-daemon/main.liq\"" >> "${run_script}"
+echo "%include \"${main_script}\"" >> "${run_script}"
 
 cat "liquidsoap.${init_type}.in" | \
   sed -e "s#@liquidsoap_binary@#${liquidsoap_binary}#g" | \
