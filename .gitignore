@@ -1,0 +1,3 @@
+liquidsoap.initd
+liquidsoap.launchd
+.*.sw*
