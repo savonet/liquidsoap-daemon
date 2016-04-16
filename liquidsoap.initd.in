@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          liquidsoap
+# Provides:          liquidsoap-daemon
 # Required-Start:    $remote_fs $network $time
 # Required-Stop:     $remote_fs $network $time
 # Should-Start:
@@ -13,15 +13,26 @@
 
 liquidsoap=@liquidsoap_binary@
 run_script=@run_script@
+pid_dir=@pid_dir@
+pid=`cat "${pid_dir}/run.pid" 2>/dev/null`
 
 case "$1" in
   stop)
-    echo -n "Stopping liquidsoap"
+    if [ -z "${pid}" ]; then
+      echo "No liquidsoap daemon running..";
+      exit 0;
+    fi;
+    echo -n "Stopping liquidsoap... "
+    kill -s TERM "${pid}"
     echo "OK"
     ;;
 
   start)
-    echo -n "Starting liquidsoap"
+    if [ -n "${pid}" ]; then
+      echo "PID file still present! Remove it if daemon isn't running..";
+      exit 0;
+    fi;
+    echo -n "Starting liquidsoap... "
     ${liquidsoap} ${run_script}
     echo "OK"
     ;;

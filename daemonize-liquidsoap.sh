@@ -12,16 +12,21 @@ if [ -z "${init_type}" ]; then
   init_type="initd"
 fi;
 
+initd_target="/etc/init.d/liquidsoap-daemon"
 launchd_target="${HOME}/Library/LaunchAgents/fm.liquidsoap.daemon.plist"
 
 if [ -z "${mode}" ]; then
   mode=install
 fi;
 
-if [ "${mode}" == "remove" ]; then
+if [ "${mode}" = "remove" ]; then
   case "${init_type}" in
     launchd)
       launchctl unload "${launchd_target}"
+    ;;
+    initd)
+      sudo "${initd_target}" stop
+      sudo update-rc.d -f liquidsoap-daemon defaults
     ;;
   esac
   exit 0
@@ -52,11 +57,18 @@ echo "%include \"${main_script}\"" >> "${run_script}"
 
 cat "liquidsoap.${init_type}.in" | \
   sed -e "s#@liquidsoap_binary@#${liquidsoap_binary}#g" | \
-  sed -e "s#@run_script@#${run_script}#g" > "liquidsoap.${init_type}"
+  sed -e "s#@run_script@#${run_script}#g" | \
+  sed -e "s#@pid_dir@#${pid_dir}#g" > "liquidsoap.${init_type}"
 
 case "${init_type}" in
   launchd)
     cp "liquidsoap.${init_type}" "${launchd_target}"
     launchctl load "${launchd_target}"
     ;;
+  initd)
+    chmod +x "liquidsoap.${init_type}"
+    sudo cp "liquidsoap.${init_type}" "${initd_target}"
+    sudo update-rc.d liquidsoap-daemon defaults 
+    sudo "${initd_target}" start
+  ;;
 esac
