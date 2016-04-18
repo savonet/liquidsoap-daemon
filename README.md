@@ -25,8 +25,13 @@ mode=remove [mode=<init system] ./daemonize-liquidsoap.sh
 ```
 
 Finally, to install the init scripts, you will need the `sudo` and `update-rc.d` commands.
-You can install them in Debian and Debian-derived systems by doing:
+You can install them in Debian:
 ```
 apt-get install sudo init-system-helpers
 ```
 and then configure `sudo`, if needed.
+
+For Ubuntu, you need to install:
+```
+apt-get install sudo sysv-rc
+```
