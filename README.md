@@ -21,7 +21,7 @@ Valid modes currently are: `initd` (default), `launchd`.
 
 You can also remove the files installed by the script by running:
 ```
-mode=remove [mode=<init system] ./daemonize-liquidsoap.sh
+mode=remove [mode=<init system>] ./daemonize-liquidsoap.sh
 ```
 
 Finally, to install the init scripts, you will need the `sudo` and `update-rc.d` commands.
