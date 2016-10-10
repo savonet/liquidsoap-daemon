@@ -39,6 +39,7 @@ case "$1" in
 
   restart|force-reload)
     $0 stop
+    sleep 1
     $0 start
     ;;
 
