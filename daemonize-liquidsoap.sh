@@ -26,7 +26,7 @@ if [ "${mode}" = "remove" ]; then
     ;;
     initd)
       sudo "${initd_target}" stop
-      sudo update-rc.d liquidsoap-daemon disable
+      sudo update-rc.d -f liquidsoap-daemon remove
     ;;
   esac
   exit 0
