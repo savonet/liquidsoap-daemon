@@ -34,7 +34,7 @@ case "$1" in
         echo "PID file still present! Removing PID file because the daemon isn't running..";
         rm "${pid_dir}/run.pid"
       else
-        echo "PID file still present! But daemon is running.."
+        echo "PID file still present! And daemon is running.."
         exit 0;
       fi
     fi;
