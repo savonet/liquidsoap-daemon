@@ -68,7 +68,7 @@ case "${init_type}" in
   initd)
     chmod +x "liquidsoap.${init_type}"
     sudo cp "liquidsoap.${init_type}" "${initd_target}"
-    sudo update-rc.d liquidsoap-daemon defaults 
+    sudo update-rc.d liquidsoap-daemon enable 
     sudo "${initd_target}" start
   ;;
 esac
