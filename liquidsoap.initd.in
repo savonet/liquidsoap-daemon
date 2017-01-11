@@ -29,8 +29,14 @@ case "$1" in
 
   start)
     if [ -n "${pid}" ]; then
-      echo "PID file still present! Remove it if daemon isn't running..";
-      exit 0;
+      pgrep -x "liquidsoap"
+      if [ $? -eq 1 ]; then
+        echo "PID file still present! Removing PID file because the daemon isn't running..";
+        rm "${pid_dir}/run.pid"
+      else
+        echo "PID file still present! And daemon is running.."
+        exit 0;
+      fi
     fi;
     echo -n "Starting liquidsoap... "
     ${liquidsoap} ${run_script}
