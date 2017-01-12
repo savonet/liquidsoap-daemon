@@ -39,7 +39,7 @@ cat <<EOS > "${run_script}"
 #!/bin/env liquidsoap
 
 set("log.file",true)
-set("log.file.path","${log_dir}/<script>.log")
+set("log.file.path","${log_dir}/run.log")
 EOS
 
 if [ "${init_type}" != "launchd" ]; then
@@ -49,7 +49,7 @@ set("init.daemon.change_user",true)
 set("init.daemon.change_user.group","${USER}")
 set("init.daemon.change_user.user","${USER}")
 set("init.daemon.pidfile",true)
-set("init.daemon.pidfile.path","${pid_dir}/<script>.pid")
+set("init.daemon.pidfile.path","${pid_dir}/run.pid")
 EOS
 fi;
 
