@@ -13,6 +13,8 @@
     <true/>
     <key>RunAtLoad</key>
     <true/>
+    <key>WorkingDirectory</key>
+    <string>@base_dir@</string>
 </dict>
 </plist>
 

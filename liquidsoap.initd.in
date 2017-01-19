@@ -12,9 +12,12 @@
 ### END INIT INFO
 
 liquidsoap=@liquidsoap_binary@
+base_dir=@base_dir@
 run_script=@run_script@
 pid_dir=@pid_dir@
 pid=`cat "${pid_dir}/run.pid" 2>/dev/null`
+
+cd "${base_dir}"
 
 case "$1" in
   stop)

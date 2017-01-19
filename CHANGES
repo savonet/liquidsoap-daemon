@@ -1,0 +1,11 @@
+0.1.2 ()
+=====
+* Change working dir to script directory.
+
+0.1.1 (August 17, 2016)
+=====
+* Bugfix release
+
+0.1.0 (August 16, 2016)
+======
+* Initial release

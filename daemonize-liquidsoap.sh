@@ -2,10 +2,11 @@
 
 # Generate configuration files to run liquidsoap as daemon.
 
-main_script="${HOME}/liquidsoap-daemon/main.liq"
-run_script="${HOME}/liquidsoap-daemon/run.liq"
-pid_dir="${HOME}/liquidsoap-daemon/pid"
-log_dir="${HOME}/liquidsoap-daemon/log"
+base_dir="${HOME}/liquidsoap-daemon"
+main_script="${base_dir}/main.liq"
+run_script="${base_dir}/run.liq"
+pid_dir="${base_dir}/pid"
+log_dir="${base_dir}/log"
 liquidsoap_binary=`which liquidsoap`
 
 if [ -z "${init_type}" ]; then
@@ -57,6 +58,7 @@ echo "%include \"${main_script}\"" >> "${run_script}"
 
 cat "liquidsoap.${init_type}.in" | \
   sed -e "s#@liquidsoap_binary@#${liquidsoap_binary}#g" | \
+  sed -e "s#@base_dir@#${base_dir}#g" | \
   sed -e "s#@run_script@#${run_script}#g" | \
   sed -e "s#@pid_dir@#${pid_dir}#g" > "liquidsoap.${init_type}"
 
