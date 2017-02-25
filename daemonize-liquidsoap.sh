@@ -98,10 +98,12 @@ WantedBy=multi-user.target" > liquidsoap.service
     sudo mv liquidsoap.service /etc/systemd/system
     sudo systemctl daemon-reload
     sudo systemctl start liquidsoap
-    echo "If you want Liquidsoap to start on boot, run:
+    echo "The Systemd service has been installed!
+If you want Liquidsoap to start on boot, run:
 systemctl enable liquidsoap
-If Liquidsoap fails to start, insure the following lines are in $main_script to insure full compatibility with Systemd:
+If Liquidsoap fails to start, add the following lines to $main_script to insure full compatibility with Systemd:
 set(\"log.file\",false)
 set(\"log.stdout\",true)
-"
+The service will run the script at $main_script with a working directory of $base_dir. If this script (or the playlists it references) uses relative paths in another directory, you may want to edit $systemd_target accordingly.
+If something doesn't work as intended, open an issue at https://github.com/sabonet/liquidsoap-daemon/issues or send an email to Bill Dengler <codeofdusk@gmail.com>."
 fi

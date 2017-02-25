@@ -2,15 +2,15 @@
 
 Run liquidsoap as daemon!
 
-This script sets your system to run your liquidsoap scripts. It currently supports the following init systems:
+This script configures your system to run your liquidsoap script, automatically and in the background. It currently supports the following init systems:
 * `Systemd` (modern Linux; Debian 8 or later, Ubuntu 15.04 or later, recent versions of Fedora, Arch Linux, etc)
 * `Initd` (older Linux; Debian before 8, Ubuntu before 15.04)
 * `Launchd` (MacOS)
 
-It works as follows:
+To use the script:
 
-* You place the script to run as daemon here: `<user home>/liquidsoap-daemon/main.liq`
-* You run `daemonize-liquidsoap.sh` with the same user
+* Place the script to run as daemon at `<user home>/liquidsoap-daemon/main.liq`
+* Run `daemonize-liquidsoap.sh` with the same user
 
 That's it!
 
