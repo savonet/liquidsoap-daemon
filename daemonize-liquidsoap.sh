@@ -105,5 +105,5 @@ If Liquidsoap fails to start, add the following lines to $main_script to insure 
 set(\"log.file\",false)
 set(\"log.stdout\",true)
 The service will run the script at $main_script with a working directory of $base_dir. If this script (or the playlists it references) uses relative paths in another directory, you may want to edit $systemd_target accordingly.
-If something doesn't work as intended, open an issue at https://github.com/sabonet/liquidsoap-daemon/issues or send an email to Bill Dengler <codeofdusk@gmail.com>."
+If something doesn't work as intended, open an issue at https://github.com/savonet/liquidsoap-daemon or send an email to Bill Dengler <codeofdusk@gmail.com>."
 fi
