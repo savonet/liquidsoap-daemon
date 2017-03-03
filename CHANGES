@@ -1,4 +1,4 @@
-0.1.2 ()
+0.1.2 (March 2, 2017)
 =====
 * Systemd support
 * Change working dir to script directory.
