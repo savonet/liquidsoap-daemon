@@ -90,7 +90,7 @@ After=network.target
 Type=simple
 User=$USER
 WorkingDirectory=$base_dir
-ExecStart=$liquidsoap_binary $main_script
+ExecStart=$liquidsoap_binary $run_script
 Restart=on-abort
 
 [Install]
@@ -101,9 +101,6 @@ WantedBy=multi-user.target" > liquidsoap.service
     echo "The Systemd service has been installed!
 If you want Liquidsoap to start on boot, run:
 systemctl enable liquidsoap
-If Liquidsoap fails to start, add the following lines to $main_script to insure full compatibility with Systemd:
-set(\"log.file\",false)
-set(\"log.stdout\",true)
-The service will run the script at $main_script with a working directory of $base_dir. If this script (or the playlists it references) uses relative paths in another directory, you may want to edit $systemd_target accordingly.
-If something doesn't work as intended, open an issue at https://github.com/savonet/liquidsoap-daemon or send an email to Bill Dengler <codeofdusk@gmail.com>."
+The service will run the script at $run_script with a working directory of $base_dir. If this script (or the playlists it references) uses relative paths in another directory, you may want to edit $systemd_target accordingly.
+If something doesn't work as intended, open an issue at https://github.com/savonet/liquidsoap-daemon."
 fi
