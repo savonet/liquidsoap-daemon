@@ -19,7 +19,7 @@ systemd_target="/etc/systemd/system/liquidsoap.service"
 
 if [ -z "${mode}" ]; then
     mode=install
-fi;
+fi
 
 if [ "${mode}" = "remove" ]; then
     case "${init_type}" in
@@ -38,7 +38,7 @@ if [ "${mode}" = "remove" ]; then
 	    ;;
     esac
     exit 0
-fi;
+fi
 
 mkdir -p "${pid_dir}"
 mkdir -p "${log_dir}"
@@ -50,7 +50,7 @@ set("log.file",true)
 set("log.file.path","${log_dir}/run.log")
 EOS
 
-if [ "${init_type}" == "initd" ]; then
+if [ "${init_type}" != "launchd" ]; then
     cat <<EOS >> "${run_script}"
 set("init.daemon",true)
 set("init.daemon.change_user",true)
@@ -59,12 +59,12 @@ set("init.daemon.change_user.user","${USER}")
 set("init.daemon.pidfile",true)
 set("init.daemon.pidfile.path","${pid_dir}/run.pid")
 EOS
-fi;
+fi
 
 echo "%include \"${main_script}\"" >> "${run_script}"
 
 cat "liquidsoap.${init_type}.in" | \
-    sed -e "s#@user@##${USER}#g" | \
+    sed -e "s#@user@#${USER}#g" | \
     sed -e "s#@liquidsoap_binary@#${liquidsoap_binary}#g" | \
     sed -e "s#@base_dir@#${base_dir}#g" | \
     sed -e "s#@run_script@#${run_script}#g" | \
@@ -72,16 +72,17 @@ cat "liquidsoap.${init_type}.in" | \
 
 case "${init_type}" in
     launchd)
-	cp "liquidsoap.${init_type}" "${launchd_target}"
+	cp -f "liquidsoap.${init_type}" "${launchd_target}"
 	launchctl load "${launchd_target}"
 	;;
     initd)
-	chmod +x "liquidsoap.${init_type}"
-	sudo cp "liquidsoap.${init_type}" "${initd_target}"
+	sudo cp -f "liquidsoap.${init_type}" "${initd_target}"
+	sudo chmod +x "${initd_target}"
 	sudo update-rc.d liquidsoap-daemon defaults 
 	sudo "${initd_target}" start
 	;;
     systemd)
-	cp "liquidsoap.${init_type}" "${systemd_target}"
-	systemctl start liquidsoap 
- esac
+	sudo cp -f "liquidsoap.${init_type}" "${systemd_target}"
+	sudo systemctl daemon-reload
+	sudo systemctl start liquidsoap 
+esac
