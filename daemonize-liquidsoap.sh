@@ -39,19 +39,19 @@ if [ "${mode}" = "remove" ]; then
     esac
     exit 0
 fi;
-if [ "${init_type}" != "systemd" ]; then
-    mkdir -p "${pid_dir}"
-    mkdir -p "${log_dir}"
 
-    cat <<EOS > "${run_script}"
+mkdir -p "${pid_dir}"
+mkdir -p "${log_dir}"
+
+cat <<EOS > "${run_script}"
 #!/bin/env liquidsoap
 
 set("log.file",true)
 set("log.file.path","${log_dir}/run.log")
 EOS
 
-    if [ "${init_type}" != "launchd" ]; then
-	cat <<EOS >> "${run_script}"
+if [ "${init_type}" == "initd" ]; then
+    cat <<EOS >> "${run_script}"
 set("init.daemon",true)
 set("init.daemon.change_user",true)
 set("init.daemon.change_user.group","${USER}")
@@ -59,48 +59,29 @@ set("init.daemon.change_user.user","${USER}")
 set("init.daemon.pidfile",true)
 set("init.daemon.pidfile.path","${pid_dir}/run.pid")
 EOS
-    fi;
+fi;
 
-    echo "%include \"${main_script}\"" >> "${run_script}"
+echo "%include \"${main_script}\"" >> "${run_script}"
 
-    cat "liquidsoap.${init_type}.in" | \
-	sed -e "s#@liquidsoap_binary@#${liquidsoap_binary}#g" | \
-	sed -e "s#@base_dir@#${base_dir}#g" | \
-	sed -e "s#@run_script@#${run_script}#g" | \
-	sed -e "s#@pid_dir@#${pid_dir}#g" > "liquidsoap.${init_type}"
+cat "liquidsoap.${init_type}.in" | \
+    sed -e "s#@user@##${USER}#g" | \
+    sed -e "s#@liquidsoap_binary@#${liquidsoap_binary}#g" | \
+    sed -e "s#@base_dir@#${base_dir}#g" | \
+    sed -e "s#@run_script@#${run_script}#g" | \
+    sed -e "s#@pid_dir@#${pid_dir}#g" > "liquidsoap.${init_type}"
 
-    case "${init_type}" in
-	launchd)
-	    cp "liquidsoap.${init_type}" "${launchd_target}"
-	    launchctl load "${launchd_target}"
-	    ;;
-	initd)
-	    chmod +x "liquidsoap.${init_type}"
-	    sudo cp "liquidsoap.${init_type}" "${initd_target}"
-	    sudo update-rc.d liquidsoap-daemon defaults 
-	    sudo "${initd_target}" start
-	    ;;
-    esac
-else
-    echo "[Unit]
-Description=Liquidsoap daemon
-After=network.target
-
-[Service]
-Type=simple
-User=$USER
-WorkingDirectory=$base_dir
-ExecStart=$liquidsoap_binary $run_script
-Restart=on-abort
-
-[Install]
-WantedBy=multi-user.target" > liquidsoap.service
-    sudo mv liquidsoap.service /etc/systemd/system
-    sudo systemctl daemon-reload
-    sudo systemctl start liquidsoap
-    echo "The Systemd service has been installed!
-If you want Liquidsoap to start on boot, run:
-systemctl enable liquidsoap
-The service will run the script at $run_script with a working directory of $base_dir. If this script (or the playlists it references) uses relative paths in another directory, you may want to edit $systemd_target accordingly.
-If something doesn't work as intended, open an issue at https://github.com/savonet/liquidsoap-daemon."
-fi
+case "${init_type}" in
+    launchd)
+	cp "liquidsoap.${init_type}" "${launchd_target}"
+	launchctl load "${launchd_target}"
+	;;
+    initd)
+	chmod +x "liquidsoap.${init_type}"
+	sudo cp "liquidsoap.${init_type}" "${initd_target}"
+	sudo update-rc.d liquidsoap-daemon defaults 
+	sudo "${initd_target}" start
+	;;
+    systemd)
+	cp "liquidsoap.${init_type}" "${systemd_target}"
+	systemctl start liquidsoap 
+ esac

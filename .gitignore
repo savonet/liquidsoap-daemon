@@ -1,3 +1,4 @@
 liquidsoap.initd
 liquidsoap.launchd
+liquidsoap.systemd
 .*.sw*

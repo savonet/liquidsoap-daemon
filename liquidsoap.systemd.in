@@ -1,0 +1,13 @@
+[Unit]
+Description=Liquidsoap daemon
+After=network.target
+
+[Service]
+Type=simple
+User=@user@
+WorkingDirectory=@base_dir@
+ExecStart=@liquidsoap_binary@ @run_script@
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target"
