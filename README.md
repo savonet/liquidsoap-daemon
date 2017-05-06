@@ -22,7 +22,7 @@ Valid modes are currently: `systemd` (default), `initd`, `launchd`.
 
 You can also remove the files installed by the script by running:
 ```
-mode=remove [init_system=<init system>] ./daemonize-liquidsoap.sh
+mode=remove [init_type=<init system>] ./daemonize-liquidsoap.sh
 ```
 
 To run this script, you will need the `sudo` command. On Debian and Ubuntu, run:
