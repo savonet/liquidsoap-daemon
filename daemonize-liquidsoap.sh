@@ -63,6 +63,10 @@ fi
 
 echo "%include \"${main_script}\"" >> "${run_script}"
 
+if [ ! -f ${main_script} ]; then
+  echo "output.dummy(blank())" >> "${main_script}"
+fi
+
 cat "liquidsoap.${init_type}.in" | \
     sed -e "s#@user@#${USER}#g" | \
     sed -e "s#@liquidsoap_binary@#${liquidsoap_binary}#g" | \
