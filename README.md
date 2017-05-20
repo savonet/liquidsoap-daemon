@@ -7,7 +7,7 @@ This script configures your system to run your liquidsoap script, automatically 
 * `Initd` (older Linux; Debian before 8, Ubuntu before 15.04)
 * `Launchd` (MacOS)
 
-To use the script:
+## Install
 
 * Place the script to run as daemon at `<user home>/liquidsoap-daemon/main.liq`
 * Run `daemonize-liquidsoap.sh` with the same user
@@ -20,16 +20,22 @@ init_type=<init system> ./daemonize-liquidsoap.sh
 ```
 Valid modes are currently: `systemd` (default), `initd`, `launchd`.
 
+## Run
+
 Once you have installed the daemonization scripts, you need to start the daemon as follows:
 
 * `Systemd`: `sudo systemctl start liquidsoap`
 * `Initd`: `sudo /etc/init.d/liquidsoap-daemon start`
 * `Launchd`: `launchctl load ${HOME}/Library/LaunchAgents/fm.liquidsoap.daemon.plist`
 
+## Remove
+
 You can also stop the daemon and remove the files installed by the script by running:
 ```
 mode=remove [init_type=<init system>] ./daemonize-liquidsoap.sh
 ```
+
+## Dependencies
 
 To run this script, you will need the `sudo` command. On Debian and Ubuntu, run:
 ```
@@ -37,12 +43,7 @@ apt install sudo
 ```
 And configure as needed.
 
-To install the initd scripts on older Debian systems (before 8), you will need the `update-rc.d` command. On Debian, run:
+To install the `initd` scripts on older Debian systems (before 8), you will need the `update-rc.d` command. On Debian, run:
 ```
 apt-get install init-system-helpers
-```
-
-For initd scripts on Ubuntu (before 15.04), you need to install:
-```
-apt-get install sysv-rc
 ```
