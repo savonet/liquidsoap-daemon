@@ -77,16 +77,13 @@ cat "liquidsoap.${init_type}.in" | \
 case "${init_type}" in
     launchd)
 	cp -f "liquidsoap.${init_type}" "${launchd_target}"
-	launchctl load "${launchd_target}"
 	;;
     initd)
 	sudo cp -f "liquidsoap.${init_type}" "${initd_target}"
 	sudo chmod +x "${initd_target}"
 	sudo update-rc.d liquidsoap-daemon defaults 
-	sudo "${initd_target}" start
 	;;
     systemd)
 	sudo cp -f "liquidsoap.${init_type}" "${systemd_target}"
 	sudo systemctl daemon-reload
-	sudo systemctl start liquidsoap 
 esac
