@@ -1,3 +1,7 @@
+0.3.0 (May 20, 2017)
+=====
+* Do not start daemon when installing
+
 0.2.0 (May 5, 2017)
 =====
 * Rework systemd
