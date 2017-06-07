@@ -59,7 +59,7 @@ mkdir -p "${pid_dir}"
 mkdir -p "${log_dir}"
 
 cat <<EOS > "${run_script}"
-#!/bin/env liquidsoap
+#!${liquidsoap_binary}
 
 set("log.file",true)
 set("log.file.path","${log_dir}/run.log")
