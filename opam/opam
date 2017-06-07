@@ -5,19 +5,20 @@ homepage: "https://github.com/savonet/liquidsoap-daemon"
 authors: "The Savonet Team <savonet-users@lists.sourceforge.net>"
 available: [ os != "win32" ]
 install: [
-  ["./daemonize-liquidsoap.sh"] { os = "linux" }
-  ["env" "init_type=launchd" "./daemonize-liquidsoap.sh"] { os = "darwin" }
+  ["mkdir" "-p" "%{prefix}%/share" "%{prefix}%/bin"]
+  ["cp" "-rf" "daemonize-liquidsoap.sh" "liquidsoap.initd.in" "liquidsoap.launchd.in" "liquidsoap.systemd.in" "%{prefix}%/share"]
+  ["ln" "-s" "%{prefix}%/share/daemonize-liquidsoap.sh" "%{prefix}%/bin/daemonize-liquidsoap.sh"]
 ]
 remove: [
-  ["env" "mode=remove" "./daemonize-liquidsoap.sh"] { os = "linux" }
-  ["env" "mode=remove" "env" "init_type=launchd" "./daemonize-liquidsoap.sh"] { os = "darwin" }
+  ["rm" "-rf" "%{prefix}%/share" "%{prefix}%/bin"]
 ]
 depends: [
   "liquidsoap"
 ]
-depexts: [
-  [ ["debian"] [ "sudo" ] ]
-  [ ["ubuntu"] [ "sudo" ] ]
- ]
+messages: [
+  "This package installs the daemonize-liquidsoap.sh script in your $PATH. Once installed, you should"
+  "execute it to configure the liquidsoap daemon. Please see: https://github.com/savonet/liquidsoap-daemon"
+  "for more information about how to run the script."
+]
 bug-reports: "https://github.com/savonet/liquidsoap-daemon/issues"
 dev-repo: "https://github.com/savonet/liquidsoap-daemon.git"

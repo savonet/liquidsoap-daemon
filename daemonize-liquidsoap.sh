@@ -2,6 +2,21 @@
 
 # Generate configuration files to run liquidsoap as daemon.
 
+# Make it work from a symlink:
+if readlink ${0} >/dev/null 2>&1; then
+  ORIG_DIR=`dirname ${0}`
+  TARGET=`readlink ${0}`
+  FIRST_CHAR=`echo ${TARGET} | head -c1`
+  if [ ${FIRST_CHAR} == "/" ]; then
+    SCRIPT_DIR=`dirname ${TARGET}`
+  else
+    SCRIPT_DIR=`dirname "${ORIG_DIR}/${TARGET}"`
+  fi
+else
+  SCRIPT_DIR=`dirname ${0}`
+fi
+cd ${SCRIPT_DIR}
+
 base_dir="${HOME}/liquidsoap-daemon"
 main_script="${base_dir}/main.liq"
 run_script="${base_dir}/run.liq"
