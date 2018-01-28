@@ -9,14 +9,14 @@ This script configures your system to run your liquidsoap script, automatically 
 
 ## Install
 
-* Place the script to run as daemon at `<user home>/liquidsoap-daemon/main.liq`
-* Run `daemonize-liquidsoap.sh` with the same user
+* Place the script to run as daemon at `<user home>/liquidsoap-daemon/script/<script-name>.liq`
+* Run `daemonize-liquidsoap.sh <script-name>` with the same user
 
 That's it, the daemon files are installed!
 
 By default, the script installs a `Systemd` service. If you want to install files for another system, you can do:
 ```
-init_type=<init system> ./daemonize-liquidsoap.sh
+init_type=<init system> ./daemonize-liquidsoap.sh <script-name>
 ```
 Valid modes are currently: `systemd` (default), `initd`, `launchd`.
 
@@ -24,15 +24,15 @@ Valid modes are currently: `systemd` (default), `initd`, `launchd`.
 
 Once you have installed the daemonization scripts, you need to start the daemon as follows:
 
-* `Systemd`: `sudo systemctl start liquidsoap`
-* `Initd`: `sudo /etc/init.d/liquidsoap-daemon start`
-* `Launchd`: `launchctl load ${HOME}/Library/LaunchAgents/fm.liquidsoap.daemon.plist`
+* `Systemd`: `sudo systemctl start <script-name>-liquidsoap`
+* `Initd`: `sudo /etc/init.d/<script-name>-liquidsoap-daemon start`
+* `Launchd`: `launchctl load ${HOME}/Library/LaunchAgents/<script-name>.liquidsoap.daemon.plist`
 
 ## Remove
 
 You can also stop the daemon and remove the files installed by the script by running:
 ```
-mode=remove [init_type=<init system>] ./daemonize-liquidsoap.sh
+mode=remove [init_type=<init system>] ./daemonize-liquidsoap.sh <script-name>
 ```
 
 ## Dependencies

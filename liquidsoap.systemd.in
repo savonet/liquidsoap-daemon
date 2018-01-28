@@ -1,16 +1,16 @@
 [Unit]
-Description=Liquidsoap daemon
+Description=@script_name@ Liquidsoap daemon
 After=network.target
 Documentation=http://liquidsoap.fm/
 
 [Service]
 Type=forking
 User=@user@
-PIDFile=@pid_dir@/run.pid
+PIDFile=@pid_file@
 WorkingDirectory=@base_dir@
 ExecStart=@liquidsoap_binary@ @run_script@
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
-Alias=liquidsoap.service
+Alias=@script_name@-liquidsoap.service

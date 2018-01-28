@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>fm.liquidsoap.daemon</string>
+    <string>@script_name@.liquidsoap.daemon</string>
     <key>ProgramArguments</key>
     <array>
         <string>@liquidsoap_binary@</string>
