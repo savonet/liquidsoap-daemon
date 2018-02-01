@@ -1,4 +1,7 @@
-liquidsoap.initd
-liquidsoap.launchd
-liquidsoap.systemd
+*-liquidsoap.initd
+*-liquidsoap.launchd
+*-liquidsoap.systemd
 .*.sw*
+log/
+pid/
+script/
