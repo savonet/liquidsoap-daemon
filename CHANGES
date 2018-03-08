@@ -1,3 +1,7 @@
+1.0.0 (March 8, 2018)
+=====
+* Allow multiple scripts.
+
 0.3.1 (June 7, 2017)
 =====
 * Allow to execute script from a symlink.
