@@ -11,17 +11,18 @@ base_dir="$(pwd)"
 
 # Make it work from a symlink:
 if readlink ${0} >/dev/null 2>&1; then
-  ORIG_DIR=`dirname ${0}`
-  TARGET=`readlink ${0}`
-  FIRST_CHAR=`echo ${TARGET} | head -c1`
-  if [ ${FIRST_CHAR} == "/" ]; then
-    LINK_DIR=`dirname ${TARGET}`
+  ORIG_DIR="$(dirname ${0})"
+  TARGET="$(readlink ${0})"
+  FIRST_CHAR="$(echo ${TARGET} | head -c1)"
+  if [ "${FIRST_CHAR}" = "/" ]; then
+    LINK_DIR="$(dirname ${TARGET})"
   else
-    LINK_DIR=`dirname "${ORIG_DIR}/${TARGET}"`
+    LINK_DIR="$(dirname "${ORIG_DIR}/${TARGET}")"
   fi
 else
-  LINK_DIR=`dirname ${0}`
+  LINK_DIR="$(dirname ${0})"
 fi
+
 cd ${LINK_DIR}
 
 script_name=$1
@@ -34,7 +35,7 @@ main_script="${script_dir}/${script_name}.liq"
 run_script="${script_dir}/${script_name}-run.liq"
 pid_dir="${base_dir}/pid"
 log_dir="${base_dir}/log"
-liquidsoap_binary=`which liquidsoap`
+liquidsoap_binary="$(which liquidsoap)"
 
 if [ -z "${liquidsoap_binary}" ]; then
     echo "Unable to find liquidsoap_binary in your path."
