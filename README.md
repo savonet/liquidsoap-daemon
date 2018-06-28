@@ -17,7 +17,7 @@ This script configures your system to run your liquidsoap script, automatically 
 * `name.liq` when `~/liquidsoap-daemon/script/name.liq` exists
 * A full path to an existing script file.
 
-It is recommended to place your script files in `/home/<user>/liquidsoap-daemon/script/`.
+It is recommended to place your script files in `~/liquidsoap-daemon/script/`.
 
 That's it, the daemon files are installed!
 
