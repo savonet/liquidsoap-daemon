@@ -13,8 +13,8 @@ This script configures your system to run your liquidsoap script, automatically 
 * Run `daemonize-liquidsoap.sh <script-name>` with the same user.
 
 `<script name>` can be one of:
-* `name` when `/home/<user>/liquidsoap-daemon/script/name.liq` exists
-* `name.liq` when `/home/<user>/liquidsoap-daemon/script/name.liq` exists
+* `name` when `~/liquidsoap-daemon/script/name.liq` exists
+* `name.liq` when `~/liquidsoap-daemon/script/name.liq` exists
 * A full path to an existing script file.
 
 It is recommended to place your script files in `/home/<user>/liquidsoap-daemon/script/`.
