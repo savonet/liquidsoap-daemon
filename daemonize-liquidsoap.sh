@@ -5,7 +5,7 @@ if [ $# -gt 1 ]; then
   exit 1;
 fi
 
-base_dir="$(pwd)"
+base_dir="$HOME/liquidsoap-daemon"
 
 # Generate configuration files to run liquidsoap as daemon.
 
