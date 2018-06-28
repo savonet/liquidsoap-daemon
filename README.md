@@ -9,8 +9,15 @@ This script configures your system to run your liquidsoap script, automatically 
 
 ## Install
 
-* Place the script to run as daemon at `<user home>/liquidsoap-daemon/script/<script-name>.liq`
-* Run `daemonize-liquidsoap.sh <script-name>` with the same user
+* Setup a system user with `sudo` access.
+* Run `daemonize-liquidsoap.sh <script-name>` with the same user.
+
+`<script name>` can be one of:
+* `name` when `/home/<user>/liquidsoap-daemon/script/<main>.liq` exists
+* `name.liq` when `/home/<user>/liquidsoap-daemon/script/<main>.liq` exists
+* A full path to an existing script file.
+
+It is recommended to place your script files in `/home/<user>/liquidsoap-daemon/script/`.
 
 That's it, the daemon files are installed!
 

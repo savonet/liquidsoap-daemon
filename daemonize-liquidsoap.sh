@@ -31,7 +31,18 @@ if [ -z "${script_name}" ]; then
 fi
 
 script_dir=${base_dir}/script
-main_script="${script_dir}/${script_name}.liq"
+
+if [ -f "${script_name}" ]; then
+  main_script="${script_name}"
+elif [ -f "${script_dir}/${script_name}" ]; then
+  main_script="${script_dir}/${script_name}"
+elif [ -f "${script_dir}/${script_name}.liq" ]; then
+  main_script="${script_dir}/${script_name}.liq"
+else
+  echo "Couldn't find a script at ${script_name}, ${script_dir}/${script_name} or ${script_dir}/${script_name}.liq"
+  exit 1
+fi
+
 run_script="${script_dir}/${script_name}-run.liq"
 pid_dir="${base_dir}/pid"
 log_dir="${base_dir}/log"
