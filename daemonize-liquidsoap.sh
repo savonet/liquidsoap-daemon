@@ -1,7 +1,9 @@
 #!/bin/sh
 
-if [ $# -gt 1 ]; then
-  echo "Usage: $0 [script_name]"
+usage="Usage: $0 [script_name]"
+
+if [ $# -gt 1 -o "$1" = "help" -o "$1" = "-help" -o "$1" = "--help" ]; then
+  echo "${usage}"
   exit 1;
 fi
 
