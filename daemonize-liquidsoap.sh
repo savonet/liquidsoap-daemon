@@ -125,7 +125,7 @@ cat "liquidsoap.${init_type}.in" | \
 
 case "${init_type}" in
     launchd)
-	cp -f "${script_name}.liquidsoap.${init_type}" "${launchd_target}"
+	cp -f "${script_name}-liquidsoap.${init_type}" "${launchd_target}"
 	;;
     initd)
 	sudo cp -f "${script_name}-liquidsoap.${init_type}" "${initd_target}"
