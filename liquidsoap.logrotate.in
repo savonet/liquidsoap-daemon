@@ -1,0 +1,15 @@
+@base_dir@/log/liquidsoap/*.log {
+  compress
+  rotate 5
+  size 300k
+  missingok
+  notifempty
+  sharedscripts
+  postrotate
+    for liq in @base_dir@/run/liquidsoap/*.pid ; do
+      if test $liq != '@base_dir@/run/liquidsoap/*.pid' ; then
+        start-stop-daemon --stop --signal USR1 --quiet --pidfile $liq
+      fi
+    done
+  endscript
+}
