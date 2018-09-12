@@ -68,6 +68,7 @@ if [ -z "${mode}" ]; then
 fi
 
 if [ "${mode}" = "remove" ]; then
+    sudo rm /etc/logrotate.d/${script_name}-liquidsoap
     case "${init_type}" in
 	systemd)
 	    sudo systemctl disable ${script_name}-liquidsoap
@@ -123,6 +124,9 @@ cat "liquidsoap.${init_type}.in" | \
     sed -e "s#@run_script@#${run_script}#g" | \
     sed -e "s#@pid_file@#${pid_dir}/${script_name}-run.pid#g" > "${script_name}-liquidsoap.${init_type}"
 
+cat "liquidsoap.logrotate.in" | \
+    sed -e "s#@base_dir@#${base_dir}#g" > "${script_name}-liquidsoap.logrotate"
+
 case "${init_type}" in
     launchd)
 	cp -f "${script_name}-liquidsoap.${init_type}" "${launchd_target}"
@@ -136,3 +140,5 @@ case "${init_type}" in
 	sudo cp -f "${script_name}-liquidsoap.${init_type}" "${systemd_target}"
 	sudo systemctl daemon-reload
 esac
+
+sudo cp -f "${script_name}-liquidsoap.logrotate" "/etc/logrotate.d/${script_name}-liquidsoap"
