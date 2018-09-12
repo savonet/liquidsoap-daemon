@@ -7,7 +7,13 @@ if [ $# -gt 1 -o "$1" = "help" -o "$1" = "-help" -o "$1" = "--help" ]; then
   exit 1;
 fi
 
-base_dir="$HOME/liquidsoap-daemon"
+base_dir="${base_dir:-$HOME/liquidsoap-daemon}"
+
+# enforce that base_dir is a full path
+if [ ! $(printf %.1s "$base_dir") = "/" ]; then
+  echo "base_dir must be a full path"
+  exit 1;
+fi
 
 # Generate configuration files to run liquidsoap as daemon.
 

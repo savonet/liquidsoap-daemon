@@ -27,6 +27,12 @@ init_type=<init system> ./daemonize-liquidsoap.sh <script-name>
 ```
 Valid modes are currently: `systemd` (default), `initd`, `launchd`.
 
+Optionally you can change the default base_dir location:
+
+```
+base_dir=</your/full/path> ./daemonize-liquidsoap.sh <script-name>
+```
+
 ## Run
 
 Once you have installed the daemonization scripts, you need to start the daemon as follows:
