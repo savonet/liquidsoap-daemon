@@ -133,7 +133,7 @@ cat "liquidsoap.${init_type}.in" | \
 cat "liquidsoap.logrotate.in" | \
     sed -e "s#@log_dir@#${log_dir}#g" | \
     sed -e "s#@pid_dir@#${pid_dir}#g" | \
-    sed -e "s#@USER@#${USER}#g" > "${script_name}-liquidsoap.logrotate"
+    sed -e "s#@user@#${USER}#g" > "${script_name}-liquidsoap.logrotate"
 
 case "${init_type}" in
     launchd)

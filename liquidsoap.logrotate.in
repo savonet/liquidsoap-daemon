@@ -1,5 +1,5 @@
 @log_dir@/*.log {
-  su @USER@ @USER@
+  su @user@ @user@
   compress
   rotate 5
   size 300k
