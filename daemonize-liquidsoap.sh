@@ -35,7 +35,7 @@ cd ${LINK_DIR}
 
 script_name=$1
 if [ -z "${script_name}" ]; then
-	script_name=main
+  script_name=main
 fi
 
 script_dir=${base_dir}/script
@@ -51,6 +51,8 @@ else
   exit 1
 fi
 
+script_name=$(basename ${script_name})
+script_name=${script_name%.*}
 run_script="${script_dir}/${script_name}-run.liq"
 pid_dir="${base_dir}/pid"
 log_dir="${base_dir}/log"
