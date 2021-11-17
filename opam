@@ -6,11 +6,11 @@ authors: "The Savonet Team <savonet-users@lists.sourceforge.net>"
 available: [ os != "win32" ]
 install: [
   ["mkdir" "-p" "%{prefix}%/share" "%{prefix}%/bin"]
-  ["cp" "-rf" "daemonize-liquidsoap.sh" "liquidsoap.initd.in" "liquidsoap.launchd.in" "liquidsoap.systemd.in" "%{prefix}%/share"]
+  ["cp" "-rf" "daemonize-liquidsoap.sh" "liquidsoap.initd.in" "liquidsoap.launchd.in" "liquidsoap.systemd.in" "liquidsoap.logrotate.in" "%{prefix}%/share"]
   ["ln" "-s" "%{prefix}%/share/daemonize-liquidsoap.sh" "%{prefix}%/bin/daemonize-liquidsoap.sh"]
 ]
 remove: [
-  ["rm" "-rf" "%{prefix}%/share/daemonize-liquidsoap.sh" "%{prefix}%/share/liquidsoap.initd.in" "%{prefix}%/share/liquidsoap.launchd.in" "%{prefix}%/share/liquidsoap.systemd.in" "%{prefix}%/bin/daemonize-liquidsoap.sh"]
+  ["rm" "-rf" "%{prefix}%/share/daemonize-liquidsoap.sh" "%{prefix}%/share/liquidsoap.initd.in" "%{prefix}%/share/liquidsoap.launchd.in" "%{prefix}%/share/liquidsoap.systemd.in" "%{prefix}%/share/liquidsoap.logrotate.in" "%{prefix}%/bin/daemonize-liquidsoap.sh"]
 ]
 depends: [
   "liquidsoap"
