@@ -8,7 +8,8 @@
   postrotate
     for liq in @base_dir@/run/liquidsoap/pid/*.pid ; do
       if test $liq != '@base_dir@/run/liquidsoap/pid/*.pid' ; then
-        sudo -u @user@ kill -s USR1 `cat $liq`
+        pid=`cat $liq | | tr -d '\n'`
+        sudo -u @user@ kill -s USR1 $pid
       fi
     done
   endscript
