@@ -131,6 +131,7 @@ cat "liquidsoap.${init_type}.in" | \
     sed -e "s#@pid_file@#${pid_dir}/${script_name}-run.pid#g" > "${script_name}-liquidsoap.${init_type}"
 
 cat "liquidsoap.logrotate.in" | \
+    sed -e "s#@user@#${USER}#g" | \
     sed -e "s#@base_dir@#${base_dir}#g" > "${script_name}-liquidsoap.logrotate"
 
 case "${init_type}" in

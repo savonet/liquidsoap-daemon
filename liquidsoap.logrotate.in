@@ -8,7 +8,7 @@
   postrotate
     for liq in @base_dir@/run/liquidsoap/*.pid ; do
       if test $liq != '@base_dir@/run/liquidsoap/*.pid' ; then
-        start-stop-daemon --stop --signal USR1 --quiet --pidfile $liq
+        sudo -u @user@ kill -s USR1 `cat $liq`
       fi
     done
   endscript
