@@ -1,4 +1,5 @@
 opam-version: "1.3"
+synopsis: "Daemonization scripts for liquidsoap"
 maintainer: "romain.beauxis@gmail.com"
 homepage: "https://github.com/savonet/liquidsoap-daemon"
 authors: "The Savonet Team <savonet-users@lists.sourceforge.net>"
