@@ -108,12 +108,13 @@ EOS
 
 if [ "${init_type}" != "launchd" ]; then
     cat <<EOS >> "${run_script}"
-set("init.daemon",true)
-set("init.daemon.change_user",true)
-set("init.daemon.change_user.group","${USER}")
-set("init.daemon.change_user.user","${USER}")
-set("init.daemon.pidfile",true)
-set("init.daemon.pidfile.path","${pid_dir}/${script_name}-run.pid")
+settings.init.daemon.set(true)
+settings.init.daemon.change_user.set(true)
+settings.init.daemon.change_user.group.set("${USER}")
+settings.init.daemon.change_user.user.set("${USER}")
+settings.init.daemon.pidfile.set(true)
+settings.init.daemon.pidfile.path.set("${pid_dir}/${script_name}-run.pid")
+settings.init.daemon.pidfile.perms.set(0o640)
 EOS
 fi
 
