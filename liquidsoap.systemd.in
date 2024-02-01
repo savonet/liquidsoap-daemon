@@ -1,7 +1,7 @@
 [Unit]
 Description=@script_name@ Liquidsoap daemon
 After=network.target
-Documentation=http://liquidsoap.fm/
+Documentation=http://liquidsoap.info/
 
 [Service]
 Type=forking
